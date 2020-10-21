@@ -1,0 +1,127 @@
+LEGACY:
+Section 23: JS Language BASICS.
+
+ 7 - Intro to JS :  Lightweight: consumes less memory,  Cross platform : client and server side, Object oriented programming language.   
+      - Works collectively with HTML and CSS for making web development possible.
+	  
+ 
+ 
+ 8 - Variables and Datatypes:  - Variables are used as a container to store values for reusability. A piece of memory in the ram is assigned to that variable. 
+                               - Datatypes 5 types : Numbers - all numbers are floating point numbers i.e., var n = 5 is 5.0. It cover all the type of numbers.
+							               String, Boolean, Undefined: By default, if no value is assigned to a variable e.g. var x; , Null. 
+							 - Javascript is dynamically typed language i,e. we do not have to define the data type of the variable during assigning or updating.
+							 - Follow camecasing while naming anything. Except $ and _ dont use any number and symbol at the start of variable. (Error - unexpected token)
+						     - Dont use reserved keyword.
+		                     - Comments - single line //, multiline /* l1 l2*/						
+ 
+ 
+ 9 - Variable mutation and type coersion:    
+				      - Type coersion - JS converts the variable type internally when it is concatenated(in many more other operations) with some other type, e.g., var a = 'a'; var      n    = 2; console.log(a+n)//a2
+					  - Variable mutation : var age = 10; --> age = 'twenty'; This feature of dynamic typing is called variable mutation.
+					       console.log('abcx') - prints the values to the browser console.
+						   alert('xyz') - popup window.
+						   var input = prompt('whats the matter?');  pop up with a text box to enter the value which can be stored and used.
+ 
+ 
+ 10 - Basic Operators :   - 1) Logical operator - > < ; 
+                            2) typeof operator- var x = 'abc';  return typeof x //String;  
+							3) Math operator - + - * / 	
+
+
+  //Takin decisions
+ 11 - Operator Precedence:  Refer operator precedence table.   Loosely equivalent to BODMAS rule.
+ 
+ 14 - if-else statements:  conditional statements which allows us to execute a certain part of our code.
+ 
+ 15 - Booleans logic:  AND && , OR ||, NOT !.
+ 
+ 16 - Ternary and Swithc Case Operators:    1) T.O. - To write if else in single line.   2) S.C - To handle large no of conditions.
+ 
+ 17 - Truthy and Falsy Values: 
+               -  Falsy - Values that are considered false when evaluated in an if condition. - undefined, NaN, 0, '', NULL.
+			   - Truthy - NOT Falsy
+			 Equality Operator.   1) == : non strict equality operater, it performs type coercion before comparing e.g,  var y=22;  y == '22'? true: false;  // true
+			         2) === : Strict equality operator. No coercion e.g,  var y=22;  y === '22'? true: false; // false  - avoids unexpected bugs.
+				 	 
+ 18 - Functions: functions acts like the container containing some lines of code which can be used multiple times again instead of writing them everytime. 	
+ 
+        function calculateAge(birthYear // no need to put var){
+  		return 2020-birthYear;
+		}
+		    
+
+ 21  Function Statements and Expressions:  Anything which does actions without producing/returning an immediate result are termed as Statements.  e.g., console.log('statement')
+
+                    Function Expression:- Anything which returns single valued result is termed as expression
+                     var insideAVariable = function(agr1, argN){return arg1+argN};
+					 
+ 22 Array: Data structure storing multiple values with same or different datatypes in a single variable. 
+     Initialise -  var arrName = ['mohit','jay','ram'];    var arrName = new Array['mohit','jay','ram'];
+	 Mutate- arrName[5] = 'gopi';  // ['mohit','jay','ram', empty, 'gopi'];       
+	 Different datatype - var ardiff = ['mohit',21,false];
+	 Array of functions - var funcArr = [calculateAge(1895), ...] 
+	               
+	Methods in array: 	push() /* adding at the end*/ , unshift() /* adding at the beginnig*/ , pop() /* removng at the end*/ , shift() /* removing at the beginnig*/ , IndexOf('x'); 	   
+				   
+ 
+ 23,24 - Coding challenge.
+ 
+ 25 - Objects and Properties:   We can only select the values of an array with its index. In an object its values can be accessed with the help of keys. Each value of and object is termed as property.  Object can hold different type of data/datastructure
+     Initialising an object:   1) With object literal   
+	                            var car = { name: 'Rolls Royce', money : 1, family: [1,2,3]};   
+								Accessing the values - car.name  or car['name']  
+							2) With new keyword. 
+							   var car = new Object();   car.name='RR'; car['money'] = 1;
+							   
+							   
+ 26 -  Objects and methods- when a function is used as a property of object, it is called the method of that object. As Array has some methods it is also an object(of class Array).
+            	                
+								//Passing the year as an argument.
+								var car = { name: 'Rolls Royce', money : 1, family: [1,2,3], year: 1990, age: calculateAge(year){ return 2020-year;}  };   
+								//implicitly using the objects property using this keyword
+  	                           var car = { name: 'Rolls Royce', money : 1, family: [1,2,3], year: 1990, age: calculateAge(){ return 2020- this.year;}  };   
+								//Setting a new property (age)with the help of function
+    	                       var car = { name: 'Rolls Royce', money : 1, family: [1,2,3], year: 1990, age: calculateAge(){ this.age =  2020- this.year;}  };   
+							   
+29 - Loops and Iteration.  - for and while.   continue - skips the execution of code after it in the current iteration.  break - excutes the code brfore it and then breaks the iteration and loop.
+
+
+
+
+Section 24: HOW JS WORKS BEHIND THE SCENES
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+ 
