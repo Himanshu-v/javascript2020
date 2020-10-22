@@ -1,23 +1,23 @@
 Section 2 : /JS Fundamentals. (only important chapters)
 
  8 -/ Breif intro to JS:  
-  ~High level (we don't have to worry about comlex stuff like memory management and concurrency - abstraction)
-  ~Object oriented -based on objects for storing most kind of data.
-  ~Multi paradigm - coded in different styles.
-  ~Programming language - set of instruction to the computer.						
-  ~ Used to -  add features to a web page, make web pages dynamic and reactive, dom manipulation.
-  ~Front end web app - Angular, React; Backend - NodeJs; Mobile application - React Native; 	
-  ~There's nothing JS cannot do.
-  ~Releases - ES2015 -> ES6   (EcmaScript)
+ ~High level (we don't have to worry about comlex stuff like memory management and concurrency - abstraction)
+ ~Object oriented -based on objects for storing most kind of data.
+ ~Multi paradigm - coded in different styles.
+ ~Programming language - set of instruction to the computer.						
+ ~ Used to -  add features to a web page, make web pages dynamic and reactive, dom manipulation.
+ ~Front end web app - Angular, React; Backend - NodeJs; Mobile application - React Native; 	
+ ~There's nothing JS cannot do.
+ ~Releases - ES2015 -> ES6   (EcmaScript)
 					
 
  9  -/ Linking external JS file. - Usually at the end of the body tag.
- 10 -/ Variable and values - Value is the smallest unit of info in js, variable is a container/name given to memory location which stores that value for reusability.
-  
+ 
+ 10 -/ Variable and values.
+ ~ Value is the smallest unit of info in js, variable is a container/name given to memory location which stores that value for reusability.
  ~Conventions to name a variable - No reserved keyword, should be descriptive, should not start with number and special symbols except $ and _. 
  
  11 -/ Data Types.  
- 
  ~A value can be object or primitives.   Primitives: Number (always floating point no. All numbers are just numbers) String,  boolean, undefined (default value), null, symbols, BigInt.
  ~JS is dynamically typed.
  
@@ -39,4 +39,71 @@ Section 2 : /JS Fundamentals. (only important chapters)
  18 -/ if else.  
  ~Conditionals to tell what part of the code to execute based on some coditions.
  
- 19 -/
+ 19 -/ Type conversion and type coercion.
+ ~ TCon - manually conv one datatype to other.  var p = 25; var num = Number(p);   Original value of p is still '25'
+ ~ TCoe - implicitly done by js
+ 
+ 21 -/ Truthy and Falsy Values: 
+~ Falsy - Values that are considered false when evaluated in an if condition. - undefined, NaN, 0, '', NULL.
+~ Truthy - NOT Falsy
+
+
+22 -/ Equality Operator.  
+~ 1) == : non strict equality operater, it performs type coercion before comparing e.g,  var y=22;  y == '22'? true: false;  // true
+~ 2) === : Strict equality operator. No coercion e.g,  var y=22;  y === '22'? true: false; // false  - avoids unexpected bugs.
+
+23 -/ Booleans logic: 
+~ AND && , OR ||, NOT !.
+
+
+24 -/ Logical Operator.
+~ &&, ||, !
+
+26 -/Switch Case Operators:    
+~ S.C - To handle large no of conditions.
+
+27 -/ Function Statements and Expressions:  
+
+~Anything which does actions without producing/returning an immediate result are termed as Statements.  e.g., console.log('statement') , if else statement 	
+~Function Expression:- Anything which returns single valued result is termed as expression
+                     var insideAVariable = function(agr1, argN){return arg1+argN};  a+b; a&&b&&c; 'string itself is an expression'
+		
+
+28 -/ Ternary Operator.
+~ T.O. - To write if else in single line.  
+~ Using TO we can place the expression inside a template literal placeholder - ${a>b?a:b}
+
+30 -/ JS Releases.  ES5 --> ES6 --> ESNext.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
