@@ -1,0 +1,74 @@
+Section 3 : Stepping into the world of python. 
+
+ 16 -Introduction: Guido Van Rossum
+ 
+ Python is an OO, multi-platform (linux, mac, windows), interpreted language. Named after comedy show - Monty python's flying circus.
+ It supports all basic data types and also some complex ones such as lists and dictionary.
+ Supports all type of programming paradigms. PP FP OOP.
+ Data in py is strongly typed. Also it is dynamically typed in terms of assignment.
+ 
+ 17 - First Code.
+ 
+ 18 - Printing in python:   
+ 
+ print() function can take multiple arguments of same/different type.    
+ 
+ 
+ 19 Strings:
+ 
+ ~Literal means value of some type - numeric literal, string literals.
+ ~input() funtions is used to enter the values from keyboard.
+ ~for strings we can use '' as well as "".
+ 
+ 20 - Escape Character \
+ 
+ ~\n - new line
+ ~\t - tab
+ ~\ to ecsape ' " or any special char in the string.  
+ ~ """ """ no need to use escape character between tripple quotes. TQ is alse used to print the string over multiple lines without using \n.
+ 
+ 21 - More Escape Character in String:
+ 
+ ~ In order to ecape \ in a string use one more \ before it. Or use the prefix 'r' before the quoted string to mark it as a Raw String.
+  
+ 22 - Variables and types:  
+ 
+ ~variable is a meaningful name given to a certain area of memory address which can store the values for computational/display purpose.
+ ~type() gives the type of variable passed in as agrument. 
+
+ 23 - Strongly typed language:  
+ 
+ ~ cannot combine/add/concate two different datatypes. No automatic type conversion.
+ 
+ 24 - Pythons numeric data types: 
+ 
+ ~Sevaral built-in datatypes in py:- numeric, iterater, sequence, mapping, file, class, exception.
+ ~Numeric: int, float, complex.  long in p2 is replaced in p3 as in p3 int has no size limit. for storing large no. at all.
+ ~Python float has max 308 places after the decimal point, and minimun 308 digits before dec point. Float has 52 digits of precision. Decimal has more.
+ 
+ 25 - Numeric operators:
+ ~ + - / *, // - integer division(no dec point in results)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
