@@ -89,7 +89,24 @@ Section 3 : Stepping into the world of python.
 36 - String replacement field.
  ~ "age =" + 5 --> error.  To overcome this, we can coerce the numbers into string using str() function.
  ~ "age = " + str(5) --> "age = 5"
- ~ Above approach can be tedious hence py3 gives .format method to solve this.  nice = 2; print("I am {0}".format(nice))
+ ~ Above approach can be tedious hence py3 gives .format method to solve this.  
+   ~nice = 2; print("I am {0}".format(nice))
+   ~print("there are {0} days in {1}".format(31,"January"))
+ 
+37 - String Formatting.
+~     print("Number {0:2} Squared {1:<4} Cubed {2:^4}".format(i,i**2,i**3)) - ** --> exponent operator
+ --> {placeholder:fieldwidth} - right aligned
+ --> {placeholder:<fieldwidth} - < - left aligned
+ --> {placeholder:^fieldwidth} , - ^ - centre.
+ --> Precision (no of digits after the decimal) can also be defined for the floating point no.
+     ~print("Pi is approximately {0:<72.54f}".format(22 / 7))  -- 72 - fieldwidth, 54f- precision
+     ~print("Pi is approximately {0:12f}".format(22 / 7)) # field width is not compulsory
+
+38 - formatting with f-string (> = py 3.6)
+~ f prefix is used in place of .format.
+~ print(f"pi is approx {22/7:12.50f}")  
+
+39 - formatting with string interpolation (not recommended) (py2))
 
 
 
