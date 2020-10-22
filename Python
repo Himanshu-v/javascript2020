@@ -43,11 +43,56 @@ Section 3 : Stepping into the world of python.
  24 - Pythons numeric data types: 
  
  ~Sevaral built-in datatypes in py:- numeric, iterater, sequence, mapping, file, class, exception.
- ~Numeric: int, float, complex.  long in p2 is replaced in p3 as in p3 int has no size limit. for storing large no. at all.
+ ~Numeric: int, float, complex.  long in p2 is replaced with int in p3 as in p3 int has no size limit. for storing large no. at all.
  ~Python float has max 308 places after the decimal point, and minimun 308 digits before dec point. Float has 52 digits of precision. Decimal has more.
  
  25 - Numeric operators:
- ~ + - / *, // - integer division(no dec point in results)
+ ~ + - / *,   // - gives integer division(no dec point in results)
+ 
+ 26 - Expression
+ ~Anything which can be calculated/evaluated to return a value/result.
+ ~All literal values are expressions a=1. LHS of assignment is not an expression a is binded to the value 12, hence 12 is an expression.
+ ~An expression can be made of different expressions
+ 
+ 27 - Operator precedence.
+ ~BODMAS - Brackets, Order/exponent, Div/Multi, Add/Subs.
+ 
+ 28- String datatype-
+ ~Sequence of characters. Index starting from 0.
+ 
+ 29-Negative indexing in String.
+ ~ -1 index points to the last char of the string and goes on backward -2,...
+ ~Can be obtained by substracting string length from the positive index.
+ 
+ 30 - Slicing - substring.  #str[inckusiveStart:exclusiveEnd]
+ 31 - Slicing with negative index.
+ 
+ 32 - Slicing with steps
+ ~Default value of step is 1.
+ ~ #str[inckusiveStart:exclusiveEnd:step]
+ ~we can bind the result of slicing into a variable.
+ 
+ 33 -Slicing backward with negative steps.
+ 
+ ~letters = "abcdefgh"
+ ~print(letters[7:0:-1]) #not including a
+ ~print(letters[::-1]) # cannot use -1 as the stop value because -1 indicates the last letter of the string.
+ 
+ 34 - Slicing idioms
+ ~letters[-4:] - last 4 letters of string.
+ ~letters[-1:] - last char of string.
+ ~letters[:1]  + Gives the 1st char of string. Prevents the breaking of code is string is empty.
+ 
+ 35 - String operators
+ ~ + concate; * multiply/repeat the string literal.;  "ab" in "tab" --> true
+
+36 - String replacement field.
+ ~ "age =" + 5 --> error.  To overcome this, we can coerce the numbers into string using str() function.
+ ~ "age = " + str(5) --> "age = 5"
+ ~ Above approach can be tedious hence py3 gives .format method to solve this.  nice = 2; print("I am {0}".format(nice))
+
+
+
  
  
  
