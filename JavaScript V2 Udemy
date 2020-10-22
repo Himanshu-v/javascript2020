@@ -64,7 +64,7 @@ Section 2 : /JS Fundamentals. (only important chapters)
 
 27 -/ Function Statements and Expressions:  
 
-~Anything which does actions without producing/returning an immediate result are termed as Statements.  e.g., console.log('statement') , if else statement 	
+~Anything which does actions without producing/returning an immediate result is termed as Statements.  e.g., console.log('statement') , if else statement 	
 ~Function Expression:- Anything which returns single valued result is termed as expression
                      var insideAVariable = function(agr1, argN){return arg1+argN};  a+b; a&&b&&c; 'string itself is an expression'
 		
@@ -74,11 +74,6 @@ Section 2 : /JS Fundamentals. (only important chapters)
 ~ Using TO we can place the expression inside a template literal placeholder - ${a>b?a:b}
 
 30 -/ JS Releases.  ES5 --> ES6 --> ESNext.
-
-
-
-
-
 
 
 
