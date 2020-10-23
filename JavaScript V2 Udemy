@@ -76,10 +76,73 @@ Section 2 : /JS Fundamentals. (only important chapters)
 30 -/ JS Releases.  ES5 --> ES6 --> ESNext.
 
 
+SECTION 2: Fundamentals Part 2
+
+32 -/ Activating Strict mode 
+~ Use as the first line of code in .js file - 'use strict';  
+~It prevents the bugs which could be ignored without the use of strict mode. If forbids us to do certain things (using reserved keywords as variable namr) and show visible error in the console(as small as mismatching of variable name which is usually not indicated without strict mode and no error is shown either).
 
 
+33 -/Functions.
+~Functions acts like the container containing some lines of code which can be used/run/called/invoked multiple times again instead of writing them everytime 
+~DRY - Don't repeat yourself. 	
+        function calculateAge(birthYear )// no need to put var
+		{
+  		return 2020-birthYear;
+		}
+
+34 -/ Function Statements and Expressions:  
+~Anything which does actions without producing/returning an immediate result are termed as Statements.  e.g., console.log('statement') 
+  Can call a function declaration before it is defined.  (hoisting)
+~Function Expression:- Anything which returns and evaluates into a single valued result is termed as expression
+                     var insideAVariable = function(agr1, argN){return arg1+argN};  - Anonymous function.
+ Cannot call a function expression before it is defined. - reference exception.		
+
+35 -/Arrow function (ES6) 
+~ var calculateAge = (ageYear) => 2020-ageYear;  - Anonymous function.
+~ Arguments - Actual value while calling; 
+~Parameters - Placeholders in funtion definition.
+					 
+39 -/ Arrays 
+Array: Data structure storing multiple values with same or different datatypes in a single variable. 
+~Initialise -  var arrName = ['mohit','jay','ram'];    var arrName = new Array['mohit','jay','ram'];
+~Mutate- arrName[5] = 'gopi';  // ['mohit','jay','ram', empty, 'gopi'];       
+~Different datatype - var ardiff = ['mohit',21,false];
+~Array inside an array.   var arr = [1,2,3,[9,8,7],4 ]
+~ Array of functions - var funcArr = [calculateAge(1895), ...] 
+~Methods in array: 	push() /* adding at the end*/ , unshift() /* adding at the beginnig*/ , pop() /* removng at the end*/ , shift() /* removing at the beginnig*/ , IndexOf('x'); 						 
+42 -/ Objects and Properties:   
+~We can only select the values of an array with its index. In an object its values can be accessed with the help of keys. Each value of an object is termed as property.  Object canhold different type of data/datastructure
+~Initialising an object:    1) With object literal   
+	                            var car = { name: 'Rolls Royce', money : 1, family: [1,2,3]};   
+								Accessing the values - car.name  or car['name']  
+							2) With new keyword. 
+							   var car = new Object();   car.name='RR'; car['money'] = 1;
 
 
+43 -/ . vs []
+~ Accessing the property of object with . notation (member access)-> car.name and [] (computed member access) -> car[name]
+					 
+					 
+
+
+44 -/Objects and methods- 
+
+~When a function is used as a property of object, it is called the method of that object. As Array has some methods it is also an object(of class Array). 
+~Cannot use function declaration inside an object, olny function expression          
+								//Passing the year as an argument.
+								var car = { name: 'Rolls Royce', money : 1, family: [1,2,3], year: 1990, calculateAge: function(year){ return 2020-year;}  };   
+								//implicitly using the objects property using this keyword
+  	                           var car = { name: 'Rolls Royce', money : 1, family: [1,2,3], year: 1990, calculateAge: function(){ return 2020- this.year;}  };   
+								//Setting a new property (age)with the help of function
+    	                       var car = { name: 'Rolls Royce', money : 1, family: [1,2,3], year: 1990, calculateAge: function(){ return this.age =  2020- this.year;}  };   
+							   
+							   car['calculateAge']() -//30
+
+46 -/ Loops and Iteration.  
+~ for and while.   continue - skips the execution of code after it in the current iteration.  break - excutes the code brfore it and then breaks the iteration and loop.
+
+			
 
 
 
