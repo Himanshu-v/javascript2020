@@ -1,0 +1,34 @@
+ection 6 - OOPS Inheritance + Constructors
+
+80, 81 - Inheritance - Shared behaviours and state.
+
+82 - Reference vs instance vs object vs class 
+~ class - blueprint; object=instance - something which follows that blueprint; reference - pointer to the object in memory/heap.
+~In java every object can only be accesed using reference, there is no other way to directly access the objects.
+	
+83 - this vs super, this() vs super().
+~ the keyword super is used to access or call the parent class members, variables and methods. Now, the keyword this, on the other hand, is used to call the current class members variables and methods, so this is required when we have a parameter with the same name as an instance variable or field. Now note that we can use both of them anywhere in a class except in static areas which is the static block or a static method, any attempt to do so there will lead to compile time errors 
+~this is commonly used in constructors and setter methods. Optional in getters.
+~super is commonly used in method overriding to call superclass methods in child classes. 
+~this() - used to call the overloaded constructors - constructor chaining to prevent rewriting of code. It must be the first statement in the constructor. And it can only be called inside a constructor.
+~super() - it is used to call the constructor of super class.Java calls the no args constructor (super()) by default even if the super class is an abstract class. (abstract classes has constructor but cannot be manually initialised). super() must be the first statement of (can be used only) inside a constructor. this() and super() only either of these can be called.
+
+
+84 Method Overloading and overriding
+~Overloading - Methods having same name but different parameter and may or may not have same return type, access modifier, checked/unchecked exceptions.MOloading can occure in the same class as well as in the subclass as the sub class has the copy of methods of super class and can make multiple other methods with the same name. Nothing to do with polumorphism but developers call it compile time polymorphism
+
+~Overriding - Defining method in the child exactly same as in the extends super. Also known as Dynamic method dispatch or runtime poly.... @Override checks the rules of overriding and tells compiler to consider the method overridden from super.   RULES:method in the subclass,  must have same name and parameters, return type can be any subclass of the RT in super, **it can't have a lower access modifier i.e., if the parent method is protected than using private in the child is not allowed, public can be used. Cannot throw a new or broader exceptions.
+Only inherited methods can be overrider,constructors and private and final methods cannot be OvRid, subclass can call superclass method by super.methodName();
+
+85, 86 -  static vs instance methods and variables.
+
+~static - Used for the operations which does not require any data from the instance of the class. Declared using static keyword. Cannot access instance methods and fielda directly as a result this keyeord is not allowed inside static method. To call a static method instance needs not be created. 
+~static variable is shared by all the instances, changes will be reflected in all instances.
+
+~instance - belongs to the instance of the class. To call a instance method instance the class needs to be created using new keyword. Can access instance and static things directly	
+~instance variables defines the state of a particular instance. Every instance has its own copy.
+
+
+Section 7 
+
+90 - Composition :  Has a relationship.  class reference inside a class.  class PC has a variable of type class Monitor. 
