@@ -3,7 +3,7 @@ Section 2 : /JS Fundamentals. (only important chapters)
  8 -/ Breif intro to JS:  
  ~High level (we don't have to worry about comlex stuff like memory management and concurrency - abstraction)
  ~Object oriented -based on objects for storing most kind of data.
- ~Multi paradigm - coded in different styles.
+ ~Multi paradigm - coded in different styles. FP PP OOP
  ~Programming language - set of instruction to the computer.						
  ~ Used to -  add features to a web page, make web pages dynamic and reactive, dom manipulation.
  ~Front end web app - Angular, React; Backend - NodeJs; Mobile application - React Native; 	
