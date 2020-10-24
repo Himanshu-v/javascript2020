@@ -10,7 +10,6 @@ Section 3 : Stepping into the world of python.
  17 - First Code.
  
  18 - Printing in python:   
- 
  print() function can take multiple arguments of same/different type.    
  
  
@@ -100,13 +99,66 @@ Section 3 : Stepping into the world of python.
  --> {placeholder:^fieldwidth} , - ^ - centre.
  --> Precision (no of digits after the decimal) can also be defined for the floating point no.
      ~print("Pi is approximately {0:<72.54f}".format(22 / 7))  -- 72 - fieldwidth, 54f- precision
-     ~print("Pi is approximately {0:12f}".format(22 / 7)) # field width is not compulsory
+     ~print("Pi is approximately {0:12f}".format(22 / 7)) #when f is specified it prints 6 digits after the 
 
 38 - formatting with f-string (> = py 3.6)
 ~ f prefix is used in place of .format.
 ~ print(f"pi is approx {22/7:12.50f}")  
 
-39 - formatting with string interpolation (not recommended) (py2))
+39 - formatting with string interpolation (not recommended) (py2))  - same as c++ -> using %d
+
+
+SECTION 4  PROGRAM FLOW CONTROL IN PYTHON
+
+41 - Introduction to blocks and statement. 
+~Unlike other languages, to make itself more readable, python does not use braces{} but distinguishes the blocks on the basis of indentation.
+~There are different levels of indentation which allows blocks and blocks inside the another block.
+~Conventionally, 4 spaces are used at a time
+~Whenever a line ends with a : python interprets it as a block and the next lines of code will be indented to a level more thant that initial line. When the indentation is removed to the level of initial line, the block ends.
+
+42 - if else Statements. 
+~ if name=='himanshu':
+    print(f"{name} is awesome")
+  else:
+    print('You can be too')    
+~We can order the condition in if else as per our likes.
+    
+43 elif Statement. 
+~ equivalent of else if - lets you check multiple conditions.  used between if and else statement.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
