@@ -126,13 +126,52 @@ SECTION 4  PROGRAM FLOW CONTROL IN PYTHON
 43 elif Statement. 
 ~ equivalent of else if - lets you check multiple conditions.  used between if and else statement.
 
+45 More on if elif and else
+
+48 - Conditional operators
+~   <, <=, >, >=, ==, !=
+
+50 - Using and or in conditions 
+~for checking multiple conditions in ths same block. Can be used with or without parenthesis.
+
+51 - Simplify chained expressions.
+
+~ if age>=16 and age <= 65:  can be written as-->  if 16<= age <=65
+
+52 - boolean expressions. 
+~Cnditional operators and and, or, not returns boolean results as True or False.
+~ variable can hold boolean value - isGood = True/False
+
+53 Truthy values
+~values that are considered to be false in the conditional statementsare called falsy values. 0,. false, empty sequence
+~Not falsy = truthy.
+~if only variable name is used in the conditions, python will expext a boolean value. 
+
+54 - in and not in
+~ To check for the character/number/sequence in another sequence.
+~Also used in loops
+
+57 - for loops
+~executing the block multiple times.
+~loop can be used on the Iterable objects -> sequences {strings, range, etc.)
+~char.isupper() - checks the case of character. string.casefold() - to lower case. string.capitalize() - to upper case.
+
+~Interrupting the iterations with:
+ ~continue - skips the execution of code after it in the current iteration and moves to the next iteration.  
+ ~break - excutes the code before it and then breaks the iteration and loop completely.
 
 
+61 - Iterating over ranges.
+~ for i in range(start, exclusiveEnd): - start to end with 1 step.
+~ for i in range(exclusiveEnd):  - start defaults to 0.
+~ for i in range(start, exclusiveEnd, step): - start to end with {step} steps.
+~ for i in range(start, exclusiveEnd, -ve step): - traces backwards with {step} steps.  start > exclusiveEnd
 
 
+65 Initializing the variable with None
+~ None - constant which mean the variable holds nothing.
 
-
-
+68 - while loop - similar to java
 
 
 
