@@ -144,6 +144,16 @@ Array: Data structure storing multiple values with same or different datatypes i
 
 			
 
+SECTION 5 -/ DEVELOPERS SKILLS AND EDITOR SETUP
+
+55 - Setting up prettier in VS code.
+~Prettier is an opinionated code formatting tool, available as an extension in VSCode, which beautifies the code to make it look more readable.
+~Functions of prettier can be configured in many ways - one is to create a .prettierrc configuration file in which an object structure can be use to customize the features.
+~Now, instead of writing some code again and again we can use user's snippet option to create a global snippet file in which a snippet can be configure with some prefix which when typed in the script file suggests the snippet configured with it.
+
+56 - Installing NodeJs and setting up a dev environment. 
+~Live-server is used to reflect the changes on the browser in real time without reloading it.
+
 
 
 
