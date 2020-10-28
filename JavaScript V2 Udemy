@@ -155,6 +155,37 @@ SECTION 5 -/ DEVELOPERS SKILLS AND EDITOR SETUP
 ~Live-server is used to reflect the changes on the browser in real time without reloading it.
 
 
+SECTION 6 - HTML and CSS
+
+~head tags used to contain the information and meta data of the html page, like title, language, charset and CSS etc.
+~body tag contains the data to be displayed on the screen.
+~img and input does not 
+~anchor tag is called an inline element because it follows the line of previous element
+~heading tag is called the block element because it creates the separate block for the data within.
+~class and id attributes can be used in all the elements to identify and select them in css stying and dom manipulation. id is unique for an element class is not
+~use - in naming the class and id inplace of camelcasing.
+~div is used to create a generic box whereas form is used to create a semantic box
+
+-/CSS
+~element selector  by elementName{},  .class{}, #id {} - used to select element to be styled.
+~style tags are used inside the head tag of html to write CSS within the file.
+~link tag is used to link external CSS file to HTML file.  href attribute specifies the source file and rel attribute specifies the relation - styleSheets.
+~font size and family are inherited by child elements.
+~border is a shorthand property which allows to specify multiple properties like pixel, color etc. - Not inherited 
+
+-/CSS BOX MODEL
+~CBM defines the pre-defined format of any html page - width, height, padding, border, margins etc
+~*{} - selects all the elements.
+~ box-sizing: border-box - specifies to consider padding size when defining the width and height of the div/form.
+~ Child selecer - parent id/class <space> id/class/name of element inside that parent.- it will select only the child of that parent
+
+
+
+
+
+
+
+
 
 
 
