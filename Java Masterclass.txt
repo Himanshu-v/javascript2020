@@ -17,7 +17,7 @@ ection 6 - OOPS Inheritance + Constructors
 84 Method Overloading and overriding
 ~Overloading - Methods having same name but different parameter and may or may not have same return type, access modifier, checked/unchecked exceptions.MOloading can occure in the same class as well as in the subclass as the sub class has the copy of methods of super class and can make multiple other methods with the same name. Nothing to do with polumorphism but developers call it compile time polymorphism
 
-~Overriding - Defining method in the child exactly same as in the extends super. Also known as Dynamic method dispatch or runtime poly.... @Override checks the rules of overriding and tells compiler to consider the method overridden from super.   RULES:method in the subclass,  must have same name and parameters, return type can be any subclass of the RT in super, **it can't have a lower access modifier i.e., if the parent method is protected than using private in the child is not allowed, public can be used. Cannot throw a new or broader exceptions.
+~Overriding - Defining method in the child exactly same as in the extended super. Also known as Dynamic method dispatch or runtime poly.... @Override checks the rules of overriding and tells compiler to consider the method overridden from super.   RULES:method in the subclass,  must have same name and parameters, return type can be any subclass of the RT in super, **it can't have a lower access modifier i.e., if the parent method is protected than using private in the child is not allowed, public can be used. Cannot throw a new or broader exceptions.
 Only inherited methods can be overrider,constructors and private and final methods cannot be OvRid, subclass can call superclass method by super.methodName();
 
 85, 86 -  static vs instance methods and variables.
@@ -32,3 +32,32 @@ Only inherited methods can be overrider,constructors and private and final metho
 Section 7 
 
 90 - Composition :  Has a relationship.  class reference inside a class.  class PC has a variable of type class Monitor. 
+91 - Composition p2 : Composition is crearting objects within objects. 
+
+92 - Encapsulation: 
+~ Mechanism which allows us to restrict access to certain components of an object. 
+~ To guard against unauthorised access. - Using private fields
+~ To make the calling class independent of the internal changes of called class. (e.g., changing the variable name) - Using getter methods to return the instance variable.
+~ To prevent the assignment of fields with invalid data. - using private fields instead of public ones and using constructors then adding validations inside constructors before assignment
+~ We protect the members of the class, and some methods, from external access. So we're doing that to prevent unauthorized set up or access.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
