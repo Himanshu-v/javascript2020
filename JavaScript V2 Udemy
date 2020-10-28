@@ -155,8 +155,9 @@ SECTION 5 -/ DEVELOPERS SKILLS AND EDITOR SETUP
 ~Live-server is used to reflect the changes on the browser in real time without reloading it.
 
 
-SECTION 6 - HTML and CSS
+SECTION 6 -/ HTML and CSS
 
+~<DOCTYPE! - indicates it is HTML5
 ~head tags used to contain the information and meta data of the html page, like title, language, charset and CSS etc.
 ~body tag contains the data to be displayed on the screen.
 ~img and input does not 
@@ -180,6 +181,30 @@ SECTION 6 - HTML and CSS
 ~ Child selecer - parent id/class <space> id/class/name of element inside that parent.- it will select only the child of that parent
 
 
+
+SECTION 7 - DOM and Event Fundamentals
+
+71 -/ What is DOM and DOM Manipulation
+~ DO Manipulation is the technical term for the interaction of JS with web pages.
+~ Rule is that the complete HTML document has to be represented as the DOM tree.
+~ DOM stands for Document Object Model, and it is,basically, a structured representation of HTML documents. The DOM allows us to use JavaScript to access HTML elements and styles in order to manipulate them. A connection point between the HTML documents and JS code.
+~DOM is automatically created by the JS engine in the browser and stored in a tree datastructure as soon as the html page loads. 
+~Each element and the data (text, comments, other stuffs) inside them in the HTML document has a corresponding element node in the DOM tree. DOM tree follows the same parent-child-sibling relations for the elements as they are used in the html document.  Each elemnt in the DOM tree is an object.  
+~Document object (a special object) is the parent node/root node of DOM tree i,e it is the entry point of DOM tree, Used on the selection of elements for manipulation.
+~Node next to the document node is html node, as it is the root node of all html pages
+~ /DOM and DOM Methods are NOT THE PART of Javascript. Javascript is just a dialect. DOM is a part of Web APIs (may be written in JS language) that browsers implement and Javascript can call or access them. Besides DOM there are many other APIs like timers, fetch etc...
+
+72 - /Selecting and manipulating elements.
+~document.querySelector('class/id').textContent = 40
+
+73 -/ Handling events.
+~use onclick = "function();func2()", onblur, onkeydown etc... attributes of some tags inside html to specify the function to be called on that particular event.
+~use document.querySelector('elementclass/id').addEventListener('eventName', eventHandlerFunction)  in the script file to handle the event and reaction to it.
+~ eventHandlerFunction - a function is just like a value hence it can be passed as an argument.
+~Math.random gives random value between 0 and 1
+
+75 -/ Manupulating CSS with DOM
+ ~document.querySelector('body').style.backgroundColor = '#100' (while manipulation always mention the value at string );
 
 
 
