@@ -41,8 +41,20 @@ Section 7
 ~ To prevent the assignment of fields with invalid data. - using private fields instead of public ones and using constructors then adding validations inside constructors before assignment
 ~ We protect the members of the class, and some methods, from external access. So we're doing that to prevent unauthorized set up or access.
 
+94 - Polymorphism
+~Mechanism of OOP which allows the objects properties to act differently based on the input/situation.
+~Assigning different functionality to a property depending on the type of object we've created.(runtime polymorphism)
+~When a method which is not overriden in the child class is called with its object java will search the method in the base class and it will be executed.
+	Animal a = new AnySubClassOfAnimal();  a.bark()  // if the method bark() is not defined in AnySubClassOfAnimal class, bark() method of Animal class will be called.
+~Poly... allows us to write more generic code.
 
 
+SECTION 8 - Arrays, Inbuilt Lists, Autoboxing and unboxing.
+101 -   Reference type and value type. 
+~ when we  created  an int variable this value type  a single space in memory is allocated to store the value and that variable directly holds a value. Now, if you assign it to another variable the value is  copied directly and then both variables work independently and of each have their own copy of a specific value. 
+~When value types are passed as the method arguments, they are passed by value i.e., any change in the copy won't affect the original. 
+~Reference type are used to refer the objects in memory.They represent the address of the object. They don't hold the object, they just refer them. 
+~When reference types are passed as the method arguments, they are passed by reference i.e., any change in the copy will affect the original, since the copy is also pointing to the same object/address in memory. 
 
 
 
