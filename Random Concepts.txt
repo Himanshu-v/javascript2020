@@ -1,0 +1,98 @@
+1 -/ Java Code To Java Heap.  Oracle Learning  https://www.youtube.com/watch?v=FLcXf9pO27w
+ 
+~ RAM of the computer is shared among different components.  i- OS ii- Native heap (including JVM) iii- Java Heap
+~ When we create any object e.g., Integer i = new Integer(10), the amount of memory this object(refered by i) takes up in the heap is around 4x( in 32 bits) and 4*2x(in 64 bits) times the memory that int value takes(32 bits). -> 4:1
+~Whenever an object is stored in the heap, apart from the actual values there are also stored some header values(overheads of object ). Like, class pointer, flags to tell whether it is an Array etc, locks for syncronization.
+~Arrays has an extra overhead of size making the object to primitive size ratio 5:1. int a[] = new int[]{10};
+~When a string is crated, String s = new String("MySt"), it actually creates two objects one having the reference s with overheads and the other is the object of character Array which is pointed by this reference s. This character Array stores the actual string M.y,S,t along with its overheads.erna
+~Collections are the main cause to the inefficient memory usage as they are wrapper on some other objects. Example, 
+~ Implementation of HashSet is a HashSet object that points to a HashMap
+~A HashSet has implementation of a wrapper around HashMap, An ArryaList is the wrapper on Array of Objects. When any value is set in the HashMap it also stores the object of Entry (containing hashKey, next, key, value), therefore a HashMap without even any data in it comsumes a lot of memory.
+~ Eclipse memory analyser tool tells us the usage of collections in our application i.e., how much of the collection is utilised and how much of it is epmty.
+
+
+
+
+2 -/HIBERNATE
+
+~ORM tool to simplify the persistence of java objects in Database. Framework that Implements JPA. 
+~With the help of few XML/Java Configuration files it is very easy to connect the application with databases in hibernate.
+~It is lightweight, and data migration from one db to the other can be conviniently handled. Dialect property is used.
+~It helps the developers not to write SQL queries manually.
+~It uses HQL - Hibernate Query Language and NQL - Named Query language.
+
+-/SAVING DATA
+~@Entity annotation is mandatory on the model class/POJO to tell hibernate that the object of this class can be persisted.
+~@id annotation is mandatory on one of the field of POJO to make it a primary key/ identifier of the object in DB.
+~Object of Configuration is used to create the object of SessionFactory, Object of SF is used to create/get the session, object of session is used to begin and commit the Transaction for ACID.
+~In the recent update configuration.buildSessionFactory();method is deprecated. This method is overloaded with one parameter which is the object of ServiceRegistry, configuration.buildSessionFactory(servReg);
+~When the object of Configuration is created ->  .configure({name of cfg file}) is call the hibernate.cfg file and reads all the configuration to create the connection with the configured DB.
+~session.save(entityObjectName)
+											 -> .addAnnotatedClass({name of @Entity class}) maps that class with DB - ORM
+~<property name="hbm2ddl.auto">update/create</property>	 is used to create the table for the entity automatically.  update - update the records in existing table; create - creates new table everytime.
+
+-/ANNOTATIONS
+~@Entity(name = "xyz_table") - change the entity name.
+~@Table(name="xyz_table") , @Column((name="col_name")),  @Transient - to not store the field in the db.
+
+-/FETCHING DATA
+ABC abc = (ABC)session.get(className.class, primaryKey);
+
+-/USE EMBEDDABLE OBJ AND FIELDS	
+~When an object of some other class is used as a field in the @Entity class and we need to store the fields of that other class inside the same @Entity table, @Embeddable is used in the other class.  @Id is not used in the other class.
+
+-/MAPPING RELATIONS.
+~@OneToOne,  @OneToMany, @ManyToOne, @ManyToMany
+
+-/FETCH EAGER , LAZY
+~In the above declared relationships when we fetch the object which has a OneToMany relation (can be any with collections) with some other object (collection of thid obj in previous obj), Hibernate will only load the records for the first object and not the collection of second object which is mapped to it unless asked explicitly with getters. This is called Lazy Loading/Fetching and it is a default fetching technique. 
+~In order to make it fetch the collections in one go/ eagerly we can use a property on the field of second object in the first object 
+   @OneToMany(mappedBy="obj1", fetch=FetchType.EAGER).
+
+-/ HIBERNATE CACHING.
+~ First Level Cache is default in Hibernate which cache's the entity for fast retrieval. There will be separate cache for different sessions. Every session will have its own FLC.
+~ Second Level Cache is shared among the sessions and has to configured using 3rd party cache like eHCache, swarm etc.
+~ Steps to conf SLC :   
+  ~Downloading ehCache jars for supporting it. Downloading hibernate-ehCache for integration.   Make sure the hibernate versions are same in integration jar and the workspace 
+  ~Configuration in h.c.xml mentioning the use of SLC and its provider  
+    <property name = "hibernate.cache.use_second_level_cache">true</property> -/ makes SLC availble for Hibernate.get,load,save methods only
+    <property name = "hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+	<property name = "hibernate.cache.use_query_cache">true</property>  -/to make SLC availble with the use of HQL Query as well.  In main java file -- query.setCacheable(true)
+
+  ~ Additional annotations on @Entity class to mark the entitiy cacheable.  As not all classes are cacheable.	
+	@Cacheable and @Cache(usage="CacheConcurrencyStrategy.READ_ONLY").
+  
+~ Whenever a query is made it will first check in FLC if not, SLC if not, DB.
+
+-/ HQL - Hibernate Query Language.
+~ With hibernate get and load methods we get the whole entity. But what if we do not want the whole entity but few columns? and Joins? That's where HQL becomes handy.
+~ SQL - select column_name from tableName;   HQL - select property/fieldName from Classname. 
+~ SQL - select * from student ; HQL - query = from Student. 
+~ Query q = session.createQuery("from Student"); Student is not tablename but the @Entity class name
+~ when HQL query q is executed - q.list(); you get the list of objects - You can use enhanced for loop easily. While in JDBC - ResultSet is returned.
+
+~ -/ When fetching specific properties,fields in HQL select part, the returned result is not the list of object of @Entity class but the List of array of Objects
+~ We can also use SQL in hibernate with the help of -/Native Queries.  
+   ~ Object of SQLQuery s = session.createSQLQuery("select * from table")  in place of Query(HQL).  s.addEntity(Student.class);  List<Student> s = s.list();
+   ~ -/Similar to HQL when specific columns are retrieved the returned object is not the object of Entity class.  We can convert the result into the Map with col name as key and the actual value as value by this -> s.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP). infact it can also be done when fetching the table.
+   
+-/Persistence Life Cycle.
+~ Different state of an object in Hibernate :  Transient , Persistent (Removed), Detached. 
+~ The moment we create any object it holds the transient state i.e., any change in the object will not be saved in DB 
+~ If the object is stored in the DB it comes into persistent state and there is a direct linkage bw obj and db. Even if the property of the object is change after calling the save   method, it will be updated in the DB. When an object is deleted from the DB it comes into a removed state.
+~ To break the linkage btween the object and the DB the object is detached and comes into a detached state.  session.detach(student)
+~ Only persistent objects can be removed and detached.
+~ transient, removed and detached objects are eligible for garbage collection.
+
+
+-/ Difference BW get and load method. 
+~
+
+
+
+
+
+ 
+
+
+	 									  
