@@ -10,6 +10,7 @@
 ~A HashSet has implementation of a wrapper around HashMap, An ArryaList is the wrapper on Array of Objects. When any value is set in the HashMap it also stores the object of Entry (containing hashKey, next, key, value), therefore a HashMap without even any data in it comsumes a lot of memory.
 ~ Eclipse memory analyser tool tells us the usage of collections in our application i.e., how much of the collection is utilised and how much of it is epmty.
 
+-/-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -20,6 +21,10 @@
 ~It is lightweight, and data migration from one db to the other can be conviniently handled. Dialect property is used.
 ~It helps the developers not to write SQL queries manually.
 ~It uses HQL - Hibernate Query Language and NQL - Named Query language.
+
+-/ CONFIGURATIONS
+~Download hibernate core jars and DBMS connector jars.
+~Configure the Driver class, connection url, db dialect in the hibernate.cfg.xml file
 
 -/SAVING DATA
 ~@Entity annotation is mandatory on the model class/POJO to tell hibernate that the object of this class can be persisted.
@@ -67,7 +72,7 @@ ABC abc = (ABC)session.get(className.class, primaryKey);
 -/ HQL - Hibernate Query Language.
 ~ With hibernate get and load methods we get the whole entity. But what if we do not want the whole entity but few columns? and Joins? That's where HQL becomes handy.
 ~ SQL - select column_name from tableName;   HQL - select property/fieldName from Classname. 
-~ SQL - select * from student ; HQL - query = from Student. 
+~ SQL - select * from student ; HQL - query = session.creatQuery("from Student"). 
 ~ Query q = session.createQuery("from Student"); Student is not tablename but the @Entity class name
 ~ when HQL query q is executed - q.list(); you get the list of objects - You can use enhanced for loop easily. While in JDBC - ResultSet is returned.
 
@@ -76,7 +81,7 @@ ABC abc = (ABC)session.get(className.class, primaryKey);
    ~ Object of SQLQuery s = session.createSQLQuery("select * from table")  in place of Query(HQL).  s.addEntity(Student.class);  List<Student> s = s.list();
    ~ -/Similar to HQL when specific columns are retrieved the returned object is not the object of Entity class.  We can convert the result into the Map with col name as key and the actual value as value by this -> s.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP). infact it can also be done when fetching the table.
    
--/Persistence Life Cycle.
+-/Persistence Life Cycle. Object State
 ~ Different state of an object in Hibernate :  Transient , Persistent (Removed), Detached. 
 ~ The moment we create any object it holds the transient state i.e., any change in the object will not be saved in DB 
 ~ If the object is stored in the DB it comes into persistent state and there is a direct linkage bw obj and db. Even if the property of the object is change after calling the save   method, it will be updated in the DB. When an object is deleted from the DB it comes into a removed state.
@@ -86,13 +91,99 @@ ABC abc = (ABC)session.get(className.class, primaryKey);
 
 
 -/ Difference BW get and load method. 
+~ get will always fire the query and return the actuall object. load() will return the proxy object and only fire the query when that object is used, suitable when an obj is passed as an argument.
+~ if the record is not present in the database, get() will return null object whereas, load() will throw NoObjectFoundException. 
+
+
+-/JPA 
+~Java Persistence API - A specification followed by all the ORM tools to manage the migration from one tool to other.
+~ Just like hibernate, XML is used to configure the DB with the application. This xml is created in the  src/main/META-INF/resources.xml
+~ Different persistent unit can be configured in the resources.xml file <persistence-unit name = "pu1">
+~ Object of EntityManager is created using EntintyManagerFactory (Factory design patterns) where this pu1 is passed.
+~ methods like persist() - to save,  find() - to retrieve are used.  
+
+-/-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-/ SPRING 
+
+-Whar is Dependency Injection 
+~Feature of spring to inject the object (of one class) dependencies to some other class preventing the manual instantiation and coupling inside/of objects of the dependent class.  Example of Shape, Triangle, and Circle.  Two things which really means a lot
+ 1:- Main goal of Spring framework is how to decouple relationship between dependent Object
+ 2:- Dependency Injection means separate the class which is dependent and inject them with the needed object when its needed from outside.
+ 
+ 
+-/Implementing.
+~ ApplicationContext and BeanFactory are two interfaces, AC is the superset of BF, which can be used to inject the dependencies during runtime. 
+~ AC is used for larger application while BF for smaller ones.
+
+-/XML Base Configuration of application
+~ Inside the calling class ->AC ac = new ClassPathXmlApplicationContext("anyName.xml");  ->  ac.getBean("beanId")  -> the beanId is configured in the anyName.xml  
+      <beans> <bean id = "beanId" class ="requredObjectClass"></bean>  </beans>   -> definition of beans tag is also required.
+~Just by changing the class in xml we can inject the required object to anywhere it is called using getBeans method.
+
+-/Annotation Based Configuration of application
+
+~ Tell the spring framework that Annotation Based Configuration is used by adding the tag   <context:component-scan base-package = "package of @Component class">
+~ Use @Component annotation on the class to be injected. The default bean id will be decapitalised and dequalified name of that class.
+
+-/ Bean Property
+~ When an object has some variables, they will also act as the dependency. These variable names can also be decoupled using the <property name="fieldName" value = "val"> tag inside the bean tag. You are actually using setter.  (Setter injection)
+
+-/Constructor Injection.
+~ We can also asign the values to the fields using constructor.  <constructor-arg value="val">
+
+-/Mixed Configuration
+~ XML based and Annotation based conf. can be used together. Scenario where one obj is the field of other class. 
+~ @Autowired annotation is used on the field (super interface of class) to make it count in the dependency injection.
+
+-/Annotation Based Configuration of Spring framework
+~ Make a class and mark it @Configuration, add methods with specific class return type which return the object of that class. 
+~ Mark these methods with @Bean.
+~ ApplicationContext ac = new AnnotationConfigApplicationContext(config.class) -> ac.getBean(Abc.class)
+~ When embedded objects are used make the bean for it in the config-class also mark the embedded field @Autowired in the dependent class.
+
+~/Getting the object without @Beans annotations
+~ Mark the config file with one extra annotation @ComponentScan(basePacked= "package1","package2").
+~ Mark each class with @Component as before  -> @Component functions and identify the name by type.
+
+~ @Primary - Used on class to consider it while returning the object, @Qualifier("class1") - Used on the autowired object reference of the super interface
+
+
+
+
+/-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-/ NO SQL.  NOT ONLY SQL .
+
+~NoSQL - non-relational database in which there is no structured mechanism of storing and linking the data.  
+~ It is schema less.  ~Horizontal scaling is possible. ~Since the computation is not complex the hardware costs low. And for the same reason the read and write operations are faster.
+~ It uses memory very efficiently.
+~ Best suited for online analytical processing. (RDB are suited in online transactional processing/storing)
+
+
+-/TYPES OF NoSQL DBs.
+ 
+ - /Columnar DB (Cassendra, HBase) 
+~Data is stored column wise rather that row wise. 
+~ since it is self indexing it uses less disk space corresponding to the RDB for same data(identity is assigned only once to all the similar values.)
+~ Read Write and math operations are faster.
+
+
+ -/Document DB( MongoDB, couchDB, RavenDB) 
+~Collection of documents 
+~ Data is stored in the same model in which the application code written -> hence read, write is easier and faster.  In the forms of json and xml
+~ suitable to store blog/catalog and video data.
+
+ -/Key-Value DB(Redis, DynamoDB) 
+~Uses associated array to store the data. A key is associated with only one value.
+~Used in session storage and caching( amazon elasticache).
 ~
 
+ -/Graph-Based DB (Neo4J, flockDB) 
+~ Each node represents an entitiy and each edge represents the relation between two nodes.	
 
 
-
-
- 
 
 
 	 									  
