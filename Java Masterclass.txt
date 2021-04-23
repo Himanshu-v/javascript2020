@@ -22,7 +22,7 @@ Only inherited methods can be overrider,constructors and private and final metho
 
 85, 86 -  static vs instance methods and variables.
 
-~static - Used for the operations which does not require any data from the instance of the class. Declared using static keyword. Cannot access instance methods and fielda directly as a result this keyeord is not allowed inside static method. To call a static method instance needs not be created. 
+~static - Used for the operations which does not require any data from the instance of the class. Declared using static keyword. Cannot access instance methods and fields directly, as a result this keyeord is not allowed inside static method. To call a static method instance needs not be created. 
 ~static variable is shared by all the instances, changes will be reflected in all instances.
 
 ~instance - belongs to the instance of the class. To call a instance method instance the class needs to be created using new keyword. Can access instance and static things directly	
