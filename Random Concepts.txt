@@ -186,4 +186,82 @@ ABC abc = (ABC)session.get(className.class, primaryKey);
 
 
 
-	 									  
+--- SPRING BOOT JAVABRAINS----------------------------------------------------------------------------------------------------------------------------------------
+(Pivotal>Spring)
+- Bootstraping the spring application without the pain of numerous configurations. - Spring boot. 
+- @SpringBootApplication - registers the annotated class as the entry point of SB application.
+- SpringApplication.run(Main.class, args); - It enables the autoconfiguration. 
+  - Srarts the spring application context. - scans the class path to plug in varoius components of the MVC application. - starts the servelet container and host the application into it.
+
+- Bill of materials - A preset list of jars which are compatible with each other for the smooth operation of the application. It is approved by the spring community.
+
+- Why embedded tomcat server -> - Convinience,  servelet container configs are now application config. With evolving application, it can be changed easily. - Makes it possible for the SB application to be a stand-alone application which can be run with a single command. - The previous point facilitates the implementation of microservises architecture eith SB.
+- We can choose any other serve by adding the dependencies in pom.xml 
+
+- @Service - marks the class as business service. This service is of singleton nature i.e., only one instance will be created by MVC and stored in the registry. 
+- @Autowired - This annotation is used over the member variable of the controller class which tells spring that the controller has the dependency with the mentioned member type to inject the object of the type of this member variable in the controller. The service object which was stored in the registery will be injected.
+
+- 4 ways to create a SB Application. 
+	1. Creating a maven project and adding the dependencies manually. 
+	2. Using a web tool called Spring Initilizr, which takes the project information - and provides a ready to run project zip. You can download this zip and import it into your IDE. 
+	3. Using Spring command line interface (CLI) - Mainly used in quick prototyping. Using groovy scripts we can run a full fledged SB application. 
+	4. Using Spring tool suite(STS) - new spring starter project -> similar parameters as in SI. 
+	
+- In order to configure the application as per the specific need over the opinionated nature of SB, we can use application.properties file. Different keys are used for diff. cong. 
+
+Spring Data JPA - 
+
+@Entity - makes the class an entity - which can be persisted in the data base using the orm framework.
+@Id - makes the field the primaryKey.
+
+- Since the basic crud operations on any entity are same, SJPA comes with the interface  CrudRepository<classType, Id type>   - this interface has to be extended by the Repository interface for every entitiy class. 
+	 
+
+
+--- SPRING FRAMEWORK JAVABRAINS----------------------------------------------------------------------------------------------------------------------------------------
+
+1) Dependency injection:  In order to remove the manual process of fulfilling the dependencies between two objects, DI is implemented. It offers IOC in which an object is created by the factory (implementing factory design patterns) and whenever any other object needs that object spring injects it. 
+
+2) Adding the jars of spring to the user libraries makes is possible to use them in multiple projects. 
+
+3) Spring bean factory is the factoy of the spring framework which is responsible to creating and mananging the objects. There are some configuration files which acts as a bluepring for this factory on how to create the specific object. The configuration file contains the list of beans and their several other properties. Whenever any class calls the the bean with its id (refer getBean syntax), the BeanFactory scans the xml file where the configurations are done and creates the object and injects it to the target. 
+
+4) ApplicationContext interface is built upon the BeanFactory interface, they have multiple implementations supporting differt ways of configurations(xml, @annotations)
+
+5) In order to initialise the primitive member variables, we can use propery/constructor-arg tag inside bean tag.  Property tag gives setters injection (setter methods in pojo) and constructor-arg gives constructor injection. type and index ar used to define the data type and sequence so that the right constructor can be called. By default the value= is always of String type.
+
+6) 7) In order to initialise the member variabe which are the objects of some other pojo- seperate bean with ref or inner beans can be used.
+
+9) To initialise collections used as member variabe - <list> tag with <ref bean="x"> tag this bean x is also defined separately in xml is used.
+    <property name = "listName">
+		<list>
+		 <ref bean="x"/> 
+		 <ref bean="y"/> </list> 
+		 </property>
+
+10) Autowiring is a concept which lets the initialisation of the member variable(objects) without explicitly configuring in the spring xml. 
+	autowire="byName" - it will compare the name of variables in pojo and id of beans in xml and initialise the objects accordingly.   injecting the valus using setters.
+	autowire="byType" - compares the class of the variale with the class in xml.  - can be used with just one variable - injecting the valus using setters.
+	autowire= "constructor" - similar to 2nd  - injecting the valus using constructor.
+	
+	When there are lot of beans in the application, it is difficult to identify the dependencies if autowiring is used. Hence on a large scale application explicit wiring is recommended.
+
+11) Spring container creates the objects by reading the configurations in the XML file. The process of bean creation, by default, is singleton.  We can configure this frequency of bean creation. In other words we can define the scope of bean creation. 
+	scope="singleton" - At the time of Intitalising ApplicationContext object it reads all the  bean config. and creates the objects and keep it in the spring container. - Done before calling getBean method. No matter how many times and from how many places the getBean method is called, there will only be single objects for each confi. bean. Not strictly a singleton because a jvm can have multiple spring containers and there can be objects of same bean in them.
+	:"prototype" - a bean is created every time when getBean method is called. 
+	Web-aware scopes 
+	: "request" - with each http servelet request the bean is initialised.
+	: "session" - For a session one bean. 
+	: "global-session" - 
+
+12) ApplicationContextAware : Lets say there is a bean class which is congigured as of singleton scope, but this bean contains other dependent beans which are configured as of prototype scope. It will not be possible to make multiple objects of sub beans since main bean is singleton. In this case, the main bean can use ApplicationContext to get the sub beans in itself(which will be executed as per the bean scope). In order to make the bean class access the ApplicationContext an interface has to be implemented by it - ApplicationContextAware, this interface contains a method setApplicationContext(ApplicationContext ac). While runtime, spring will search for the classes impl. this interface and automatically pass the ApplicationContext object in the setApplicationContext method. This object can be captured in a member variable and used for further bean calls.  
+ BeanNameAware : gives the name of bean in the XML
+ 
+13) Bean Definition inheritance.  - Inheriting the properties configuration of one bean to the other.  using parameter parent="parentbeanid";  
+	- Along with single properties, list or any collection of properties can be inherited, and additional elements can be added in the list using  <list merge="true"> in child bean. 
+	- if we want to restrict parent bean from getting initialised using getBean method  abstract="true" parameter is used in bean tag.
+	
+14) Lifecycle Callback - In order to bind methods with beans, that are called during start of the application(bean creation) and at the end of the application. We can implement two interfaces in the bean class - InitialisingBean (method - afterPropertiesSet())  2- DisposableBean (method - destroy()). 
+	-In the main class, instead of Application context we can use AbstractApplicationContext class, and bind a shud down hook with the context. So that when the application ends this hook is called which inturns call the destroy method in the implemented bean class. 
+	-Spring automatically registers the methods while component scan. 
+	
