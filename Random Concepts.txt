@@ -270,4 +270,5 @@ Spring Data JPA -
 		- If you want to make these calls global for all beans then in the beanS tag write default-init-method ="" default-destroy-method="" -- if the bean class implements these methods, they'll be called else ignored. 
 		
 	If with use both these methods of callback configuration- both the confi methods will be executed but first the interface implemented ones and then the xml configured ones
+	- Shutdown hook needs to be registered in both the approaches.
 	
