@@ -262,6 +262,12 @@ Spring Data JPA -
 	- if we want to restrict parent bean from getting initialised using getBean method  abstract="true" parameter is used in bean tag.
 	
 14) Lifecycle Callback - In order to bind methods with beans, that are called during start of the application(bean creation) and at the end of the application. We can implement two interfaces in the bean class - InitialisingBean (method - afterPropertiesSet())  2- DisposableBean (method - destroy()). 
-	-In the main class, instead of Application context we can use AbstractApplicationContext class, and register a shut down hook with the context (context.registerShutdownHook()). So that when the application ends this hook is called which inturns call the destroy method in the implemented bean class. 
+	-In the main class, instead of Application context we can use AbstractApplicationContext class, and register a shut down hook with the context (context.registerShutdownHook()). So that when the application ends this hook is called and destroys all the beans which inturns call the destroy method in the implemented bean class. 
 	-Spring automatically registers the methods while component scan. 
+	
+	If we do not want to implement these spring specific interfaces and make class level changes, bean configuration can be done at xml level. 4
+		- First write the methods in the bean pojo class then in the bean tag - write init-method="" destroy-method=""
+		- If you want to make these calls global for all beans then in the beanS tag write default-init-method ="" default-destroy-method="" -- if the bean class implements these methods, they'll be called else ignored. 
+		
+	If with use both these methods of callback configuration- both the confi methods will be executed but first the interface implemented ones and then the xml configured ones
 	
