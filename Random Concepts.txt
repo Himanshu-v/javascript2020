@@ -262,6 +262,6 @@ Spring Data JPA -
 	- if we want to restrict parent bean from getting initialised using getBean method  abstract="true" parameter is used in bean tag.
 	
 14) Lifecycle Callback - In order to bind methods with beans, that are called during start of the application(bean creation) and at the end of the application. We can implement two interfaces in the bean class - InitialisingBean (method - afterPropertiesSet())  2- DisposableBean (method - destroy()). 
-	-In the main class, instead of Application context we can use AbstractApplicationContext class, and bind a shud down hook with the context. So that when the application ends this hook is called which inturns call the destroy method in the implemented bean class. 
+	-In the main class, instead of Application context we can use AbstractApplicationContext class, and register a shut down hook with the context (context.registerShutdownHook()). So that when the application ends this hook is called which inturns call the destroy method in the implemented bean class. 
 	-Spring automatically registers the methods while component scan. 
 	
