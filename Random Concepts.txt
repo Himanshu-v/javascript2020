@@ -272,3 +272,18 @@ Spring Data JPA -
 	If with use both these methods of callback configuration- both the confi methods will be executed but first the interface implemented ones and then the xml configured ones
 	- Shutdown hook needs to be registered in both the approaches.
 	
+15) - BeanPostProcessor - If we want to execute a piece of code before and after the initialisation of all the beans defined in the xml we create a separate class and implement this BPP interface. 
+	- It is basically done in order to extend the functionality of the spring framework. 
+	- The interface contains two methods  - postProcessBeforeInitialisation and ...afterIni..(Object bean, String beanName)  -> 
+	- We need to create the bean config. for this new class to let spring know it's existance and spring will automatically figure out scanning the implementation of the interface.
+	- Note that there is not destroy method here, only methods fot initialisation.
+16) - BeanFactoryPostProcessor  - Same as BPP but the execution takes place during the startirng of BF i.e., even before the BF creates singleton/(as configured) objects of the beans /  or before preInstantiateSingletons. 
+	- Only one method  - postProcessBeanFactory(ConfigurableListableBeanFactory bf)
+	- PropertyPlaceholderConfigurer is an inbuilt BFPP, which is used to replace the placeholders in the xml with the actual value defined in the properties file. Define bean for this class as well in xml and inside property tag define the name="locations" and value = "xyz.properties". 
+17) - Coding to interfaces - instead of storing the bean (context.getBean("beanId"))to a particular class we can store it in a parent interfaces of all the similar classes  Shape(I), Triangle(C), Circle(C). This enables the dynamic binding of beans. 
+
+18) @Required annotation - allows us to specifies which dependencies are required. We need to configure a beanpostprocessor - RequireAnnotationBPP - which will scan this annotation and let jvm know the mandatory properties. If the properties are not set then it will throw an ex. much before the actual code gets implemented. This annotation can be used on a setter of the dependent field.
+	
+19) @Autowired - This annotation is used to autowire the dependencies. When used over a setter/field it first scans the xml for the type of the field, if there is only one bean of that type in xml it will inject the dependencies but if there are more beans of the same type, the next step it does is to look at the matching id/name of the bean. 
+
+ If there are multiple beans of same type, and no match in the name - we can use @Qualifier("xyzRelated") along with @Autowired on the setter, and a new tag <qualifier value = "xyzRelated"/> in the bean which we want to get injected.
