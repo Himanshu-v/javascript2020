@@ -285,5 +285,59 @@ Spring Data JPA -
 18) @Required annotation - allows us to specifies which dependencies are required. We need to configure a beanpostprocessor - RequireAnnotationBPP - which will scan this annotation and let jvm know the mandatory properties. If the properties are not set then it will throw an ex. much before the actual code gets implemented. This annotation can be used on a setter of the dependent field.
 	
 19) @Autowired - This annotation is used to autowire the dependencies. When used over a setter/field it first scans the xml for the type of the field, if there is only one bean of that type in xml it will inject the dependencies but if there are more beans of the same type, the next step it does is to look at the matching id/name of the bean. 
+-  We need to configure a beanpostprocessor - AutowiredAnnotationBPP 
+-  If there are multiple beans of same type, and also no match in the name - we can use @Qualifier("xyzRelated") along with @Autowired on the field/setter, and a new tag <qualifier value = "xyzRelated"/> in the bean which we want to get injected.  *Add namespaces in bean tag to use tags like qualifier etc.
 
- If there are multiple beans of same type, and no match in the name - we can use @Qualifier("xyzRelated") along with @Autowired on the setter, and a new tag <qualifier value = "xyzRelated"/> in the bean which we want to get injected.
+- To save defining the BPP everytime, there is a tag <context:annotation-config/> which defines all the inbuilt BPP\
+
+20) - JSR-250 Annotation -   Java Specification Request- 250 - defines all the standard annotation that would apply across different technologies and framework. NOT Spring specific annotation
+  @Resource(name="beanNameInXML") - on the setter of dependent field.
+  @PostConstruct - on custom init method.
+  @PreDestroy - on custom destroy method.    all three are from javax.annotations
+  
+21) Stereotype annotations (in the stereotype package) - Till now, in order to register a bean we have to config the bean in XML. 
+						   - There are certain annotations which lets us define the bean during the class declaration itself. 
+						   - One such bean is @Component - this is used over a class and marks it as a bean. Addon work is just to define a tag  <context:component-scan base-package = "packageName"/> 
+						   - This tag in the xml lets spring knows that there are beans defined using annotations - and during component-scan the spring registers these annotated classes as beans. 
+						   - When we make any enterprise application using MVC design, there are certain classes with different roles. Spring lets us define these roles using annotation. 
+								- In place of generic @Component, we can use below annotation defining the class as a bean with specific role. 
+									@Controller - C 
+									@Service - buissiness logic /service layer
+									@Repository - Data layer
+	Disadvantage of using annotated bean declaration is that there will be a single instance. Whereas in xml we can define multiple bean of same class with different metadata(e.g. - Points). 
+	
+	
+22) MessageSource to get data from properties file - ApplicationContext is BeanFactory + additional functionality.  These additional functionality includes Messagin and Internationalisation. 
+	- In order to decouple the message from the code we can use a properties file in which the data is kept in k-v pair. 
+	- A bean of class ResourceBundleMessageSource is to be created and this bean contains the property tag containing the list of all the properties files in the class path. 
+	- Using the object of ApplicationContext  a method is called - context.getMessage("keyName", placeholders, "default msg", locale)
+	
+	- In order to use this outside the main method we can use ACAware to get the context object in any bean but there's already the same method - getMessage in the ResourceBundleMessageSource class. 
+	- So with the help of a local variable of type MessageSource with @Autowired annotation we can call this method. 
+	- When there are parameters/placeholders in the value against any key e.g., Point cordinates are:({0},{1}) - We need to pass an array of object in the getMessage to substitute them.
+	
+	- Internationalisation - using locale. adding suffix _en, _tam etc in the properties file. And passing the same as the last argument of the getMessage method.
+	
+23) - Second additional feature of AC over BF - Event Handling -  
+		- Any event has three components -  event, eventpublisher, and eventListner. 
+		- With the help of application context we can create these components. 
+		- EventClass implements ApplicationEvent   - contains parameterised constructor taking the event source class object and calling the super constructor. Overriden toString
+		- EListnerClass implements ApplicationListener -  onApplicationEvent(ApplicationEvent event) { print}
+		- EPublishClass - is the class in which we need to initiate this event. This class will implement ApplicationEventPublisherAware -  
+		     impl method -    setApplicationEventPublisher(ApplicationEventPublisher publ){this.publ = publ}->  publ.publishEvent(new EventClass(this)) - Behind the scene this method is implemented in ApplicationContext so Application context is the provider of event handling. 
+									
+24)- AOP - Aspect oriented programming. - It is a programming paradigm and not specific to spring. It is another way if implementing IOC. There are certain cross cutting concerns/functionalities which every application need to implement. For example you have 3 classes and mrthods of these classes logs the flow of execution. In traditional way either we can make a logging method in all the classes, or make a logging class and call its method in all other classes. This way is cumbursome. To make this cross cutting concern of logging more efficient Aspects are used instead of classes. 
+	-You can create an Aspect of Logging, Transaction, Security and other concerns, and configure the methods for which these Aspect need to be called in a separate file Aspect-Configuration. 
+	-This saves a whole lot of time and re-writing. In future if any other method of any class needs the Security aspect, adding config. in the AC will do the work.
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
