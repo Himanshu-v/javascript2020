@@ -368,8 +368,26 @@ Spring Data JPA -
 	
 	GOOD PRACTICE:  Combining the pointcuts. Insoide @Before. Using && operator. Just like writing the condition in if statememt.
 	
-									
-									
+30) JoinPoint and Advice argument: 
+	JOINPOINT
+	 - If an advice is getting executed for all the methods of a class, we would want to print customised logs based on the method which triggered the advice. This can be done by passing the reference of Joinpoint as an argument in the advice method. Spring automatically passes its object to the advice method. 
+	 - toString implementation of joinpoint prints the complete pointcut which lets us know the target method.
+	 - There are methods in this object, which allows us to get hold of the target. for ex, joinpoint.getTarget gives the object of the class.
+						
+	ADVICE ARGUMENT
+		- Lets say we have an advice which is getting called for all the the methods having String type as an argument.  We would write @Before("args(String)");
+		- To get hold of the value of this argument we can also write it as @Before("args(name)") piblic void setAdvice(String name){...};  Since we are defining the type of name in advice argument, Spring will resolve it while runtime, for what methods we need to call the advice.
+		
+31) After advice: 
+	
+	- @After("poincutExp") - To call the advice the method after the point cut method has been executed. This advice will be called irrespective of the successful execution of pointcut method. 
+		                   - This advice will not be called after the spring container initialise the beans.
+	- @AfterReturning("poincutExp")- In order to control this behavioir, i.e., calling the advice method only after successful execution(without any exception) - 
+	-  @AfterThrowing("poincutExp")- if the exception is thrown.
+			
+	-@AfterReturning(pointcut="args(name)", returning="returnString") public void returnAdv(String name, String/Object returnString)  - get hold of the return value.
+	-@AfterReturning(pointcut="args(name)", throwing="ex") public void throwAdv(String name, RuntimeException ex)- to get hold of the exception.							
+	
 									
 									
 									
