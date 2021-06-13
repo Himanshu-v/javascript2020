@@ -332,7 +332,42 @@ Spring Data JPA -
 									
 									
 									
-									
+25) Setting up the dev env. for AOP -  Jars to be added  in the classpath (add in a user library)- 1) aspectj, aspectjweaver 2) aopalliance 3) cgilib 4) asm.
+26) Writing our first aspect. -   *Spring framework distribution - project folder  - in order to get the standard files, specific namespaces for xml, etc.*
+	Similar Shape serivice is used, Aspect of loggin will be implemented to log the execution flow , when getName of service is called.  
+	*context.getBean("beanId", Bean.class) - no need to cast the object manually, spring takes care of it.*
+	
+	Part 2 - Aspect is just a class with a specific annotation - @Aspect (org.aspectj.annotation). In this we can write as many methods we want. These methods are called advice - standard terminology of AOP.
+	- There are certain annotation which are to be added on these advices methods to tell/configure their execution. E.g.,
+		@Before("execution(public String getName)") - This will tell spring to execute the advice method before the execution of getName() -whenever and wherever in the project it is encountered.
+	- In order to make Spring aware of the AOP implementation a special tag is to be added in the xml file -<aop:aspectj-autoproxy/>
+	- Bean of the aspect class is to be configured in the xml
+
+28) Pointcut and Wildcard expression. 
+	@Before("execution(public String PACKAGENAME.CLASSNAME.getName)")  - In order to restrict the execution of the advice for a particular class.
+	
+	WILDCARDS - Let's suppose you need to configure single advice with multiple methods - to be specific multiple getters. 
+	@Before("execution(public * get*)")     -before the execution of all the public methods irrespective of the return type and name starting with get having 0 argument, this advice will be called. So Shape.getCircle.getName() - will trigger this advice twice.
+	@Before("execution(public * get*(*))")  applied to all getters with one or more arguments
+	@Before("execution(public * get*(..))") - applied to all getter whether they have arguments or not. .. - it can be 0 or it can be any number of argument. Most suitable.
+	@Before("execution(public * PACKAGENAME.*.get*(..))") -applied on getters in all the classes in the package.
+	
+	POINTCUTS -  Let's suppose you need to configure multiple advices with single method- One way of doing it is adding same annotation on multiple advice methods(which can be cumbursom in the long run).
+		- The expression passed in @Before annotation is called a Pointcut expression - i.e., a cut in the point of code where the advice method execution will be filled. 
+		- In order to  configure multiple advices with single method more efficiently, we can define a pointcut for that point using @Pointcut("execution(public * get*(..))") over a method without any executable lines. And this method name can be replaced in the @Before("PointcutAnnotatedMethod()") - This saves a lot of typing
+		
+29) A few more Pointcut expressions: '
+
+	WITHIN:
+	@Pointcut("execution(* * PACKAGENAME.className.*(..))") can be writter using within keyword @Pointcut("within(packagename.className)")  - applies to all methods in the class
+	@Pointcut("within(packagename.*)") - applies to all methods in the class in the package
+	@Pointcut("within(packagename..*)") - applies to all methods in the class in the package and subpackage(..)
+	 --within keyword takes classname while execution keyword takes method name as end point.
+	 
+	ARGS:  Defines the agruments that a method in the code takes. Takes in classes and interfaces as parameter. Can take multiple arguments. Whichever method matches the arguments, grtd applied with the advice.
+	
+	GOOD PRACTICE:  Combining the pointcuts. Insoide @Before. Using && operator. Just like writing the condition in if statememt.
+	
 									
 									
 									
