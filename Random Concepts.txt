@@ -389,8 +389,17 @@ Spring Data JPA -
 	-@AfterReturning(pointcut="args(name)", throwing="ex") public void throwAdv(String name, RuntimeException ex)- to get hold of the exception.							
 	
 									
-									
-									
+32) @Around advice - In order to combine the feature of Before and After advice. Around advice can be used. 
+				- The advice method must have ProceedJoinPoint reference as an argument. With this object(passed by spring) we can controll the execution of the target methods(getters in this case)
+				- returnValue = ProceedJoinPoint.proceed() methods indicates that the target method will be executed. Anything before and after this line will be logged before and after the execution.
+				- must be enclosed in a try catch - Anything written in catch block will be logged if the target method throws an exception.
+				- Benefits of using Around - a method variable is shared before and after in a thread safe manner. 
+				- The best practice is to use the lest powerful annotation which is enough for serving the use case.
+				- The advice method must return the return type of target method in case of Around annotation.
+				
+33) Naming convention and custom annotation. 
+		NC - Proper naming convention while naming the classes and packages must be followed. It makes the project organised and also makes it easier to use wild card patterns in the pointcut expressions.
+		CustomAnnotation - A custom annotation can be created and the target method can be annotated with it (eg- @Loggable) And instead of using the pointcut expression we can use @Before("@annotation(packageName.Loggable)")  this advice will be called before all the methods which are annotated with @Loggable.
 									
 									
 									
