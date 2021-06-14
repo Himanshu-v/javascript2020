@@ -400,6 +400,62 @@ Spring Data JPA -
 33) Naming convention and custom annotation. 
 		NC - Proper naming convention while naming the classes and packages must be followed. It makes the project organised and also makes it easier to use wild card patterns in the pointcut expressions.
 		CustomAnnotation - A custom annotation can be created and the target method can be annotated with it (eg- @Loggable) And instead of using the pointcut expression we can use @Before("@annotation(packageName.Loggable)")  this advice will be called before all the methods which are annotated with @Loggable.
+		
+34) AOP XML Configuration:  Preferred when an aspect is to be treated as a configuration(debugging aspect) rather than a part of the functionality(transaction aspect)
+	In place of annotations on the class, xml tags are used.  In the spring xml where beans are defined. We can config aop within 
+		<aop:config> 
+		  <aop:aspect id="xyz" ref="beanNameOfAspClass">  
+				<aop:around pointcut="pexpression" method = "adviceMethodName">
+		  </aop:aspect>
+		</aop:config>
 									
-									
-									
+	
+
+	
+
+---------------------------------------------------------------------------SRPING SECURITY	
+
+
+1) What is spring security. 
+             - it is an application framework that helps in application level security. You can ask for a specific thing and spring can make it available e.g.,
+		- Login and logout functionalities, URI access controll only for loggedin user,  URI access controll only for loggedin user with specific roles.
+		-ou can configure spring security in your application as per the specific requirement.\
+		-Since the implementation of security can vary, spring security is very flexible and customisable.
+		-Why spring security? 
+			- It handles common vulnurabilities line - session fixation, clickjacking, csrf.
+			- Widely adoptes - evolving frequently.
+		- With spring security you can implement: 
+			- username passwod authentication.
+			- Single sign on - Okta/LDAPCertStoreParameters
+			- Application level authorisation in addition to authentication.
+			- Intra application authentication using OAuth
+			- Microservices authentication (JWT) - When one MS communicating with other. Assuring the inaccessible data is not shared.
+			- Method level security - In addition to URI and API authentication. More granular.
+			
+2) 5 Core concepts in SS: 
+	- AUTHENTICATION:
+	- AUTHORISATION:
+	- PRINCIPAL:
+	- GRANTED AUTHORITY:
+	- ROLES:
+			
+		
+						  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
