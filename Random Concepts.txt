@@ -419,7 +419,7 @@ Spring Data JPA -
 1) What is spring security. 
              - it is an application framework that helps in application level security. You can ask for a specific thing and spring can make it available e.g.,
 		- Login and logout functionalities, URI access controll only for loggedin user,  URI access controll only for loggedin user with specific roles.
-		-ou can configure spring security in your application as per the specific requirement.\
+		-ou can configure spring security in your application as per the specific requirement.
 		-Since the implementation of security can vary, spring security is very flexible and customisable.
 		-Why spring security? 
 			- It handles common vulnurabilities line - session fixation, clickjacking, csrf.
@@ -433,20 +433,34 @@ Spring Data JPA -
 			- Method level security - In addition to URI and API authentication. More granular.
 			
 2) 5 Core concepts in SS: 
-	- AUTHENTICATION:
-	- AUTHORISATION:
-	- PRINCIPAL:
-	- GRANTED AUTHORITY:
-	- ROLES:
-			
+	- AUTHENTICATION: Answering Who are you? and proving your identity to the guard is termed as authentication. 
+		Knowledgebased authentication - password, secret answer etc.  Cons: Anyone who stole your password can impersonate as you.
+		Possession based authentication - OTP on phone. Cheking something you possess. 
+		Multi factor authentication - password + otp.
 		
-						  
-
-
-
-
-
-
+	- AUTHORISATION: Can this user do this? Are you allowed to do somthing you're asking for? Role based authorisation. After authentication.
+	
+	- PRINCIPAL: A principal is a user who passed the authentication. A currently logged in user - Principal.  The application context is tied to the principal.
+	
+	- GRANTED AUTHORITY: Pre specified access and permissions of what the user can do. Authorisation happens based on these granted authority. Fine grained individual permissions.
+	
+	- ROLES: Group of authorites. Having certain permissions. So that there's no need to grant them for every user again and again. Coarse grained grouping of permission.
+			
+			
+3) Add SS to Spring bood app.
+	 - Dependency - spring-boot-starter-security  in pom.xml 	
+	 - Just by adding this dependency. Spring security configures certaing filters for the incoming requests nd put your application behind a form based authentication. By default, 
+		- It adds mandatory authentication for all URLs
+		- It creates a login page
+		- It validates the credentials and handles the login errors
+		- It creats a user (name = user) and sets a defualt password (generated in console)for it.
+	- You can define custom user and password in application.properties file. With key- spring.security.user.name/password.
+	
+4) Configure SS authentication: 
+			- Authentication manager is a class which manages all the auth. It has a method called authenticate() which returns true for successful auth and throws exception for the failed.
+			- We do not work directly with the AM but with its builder class. AMBuilder. We can tell what kind of auth we need and list of users and roles. This builder then created the AM somewhere with our configurations.
+			- First step: To get hold of this AMBuilder. We need to create a custom configuration class and override the configure(AMBuilder amb) method of the extended class (WebSecurityConfigurerAdapter) in SS framework which takes in the AMBuilder arg. If you do not override this method, default auth will take place.
+			- Second step: Pass in the conf.  -   amb.inMemoryAuthentication().withUser("blah").password("bff").roles("USER");
 
 
 
