@@ -457,15 +457,50 @@ Spring Data JPA -
 	- You can define custom user and password in application.properties file. With key- spring.security.user.name/password.
 	
 4) Configure SS authentication: 
-			- Authentication manager is a class which manages all the auth. It has a method called authenticate() which returns true for successful auth and throws exception for the failed.
+			- Authentication Manager(AM) is a class which manages all the auth. It has a method called authenticate() which returns true for successful auth and throws exception for the failed.
 			- We do not work directly with the AM but with its builder class. AMBuilder. We can tell what kind of auth we need and list of users and roles. This builder then created the AM somewhere with our configurations.
-			- First step: To get hold of this AMBuilder. We need to create a custom configuration class and override the configure(AMBuilder amb) method of the extended class (WebSecurityConfigurerAdapter) in SS framework which takes in the AMBuilder arg. If you do not override this method, default auth will take place.
-			- Second step: Pass in the conf.  -   amb.inMemoryAuthentication().withUser("blah").password("bff").roles("USER");
+			- First step: To get hold of this AMBuilder. We need to create a custom configuration class and override the configure(AMBuilder amb) method of the extended
+			class (WebSecurityConfigurerAdapter) in SS framework which takes in the AMBuilder arg. If you do not override this method, default auth will take place with once single default user and password.
+			
+			- Second step: Pass in the type of auth and users.  -   amb.inMemoryAuthentication().withUser("blah").password("bff").roles("USER")
+																		.and().withUser("user2").password("nbs").roles("USER")
+																		.and().withUser("user3").password("fbs").roles("ADMIN");  -- .and() lets use do the chaining for next object as well.
+			- Annotate this SecurityConfiguration class with @EnableWebSecurity - it registers and let spring know it is a web security conf class.
+			- The last step is to create a bean of PasswordEncoder which lets SS encode the password from simple text to hashed/encoded formst.
+					Create a method and annotate it with @Bean in the same class with return type PasswordEncoder. 
+					
+					@Bean
+					public PasswordEncoder getPEBean(){
+					return NoOpPasswordEncoder.getInstance();
+					
 
 
-
-
-
+5) Configure authorisation in SB: 
+	- Pre-requisite- Depencencies + authentication.
+	- We need to restrict the access based on the roles a particular user has. 
+	- With the help of HttpSecurity object we can map the path to the roles.
+	- In order to get hold of HttpSecurity object in the security conf. file, we need to override the configure method having HttpSecurity as an agrument. 
+	- Once the object is held, we can use method chaining as: The format is to put the most restrictive mapping first and least at the last.
+		httpSecurity.authoriseRequest()
+		.antMatcher("/** (wildcard pattern)").permitAll()  - Makes all the apis("/**") accessible to all role.
+		.antMatcher("/user").hasRole("USER").hasAnyRole("USER", "ADMIN") - Makes the apis with /user mapping accessible to USER and ADMIN role.
+		.antMatcher("/ (wildcard pattern)").permitAll("ADMIN")
+		.and().formLogin() ;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 
 
