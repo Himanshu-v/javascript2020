@@ -1,0 +1,29 @@
+SPRING BOOT MICROSERVICES (BASICS)
+
+1) Microservices - As the name suggest is a way of building an application by breaking/decomposing it down into smaller/moduler piece of code handling a specific task/domain instead of building the application as a monolith. 
+	- In a monolith application there are complexities within and in MS arch. there are complexities among different MSs.  
+	- In order to solve these common complexities there are several technologies(libraries and framework to solve common problems) and patterns(makes MS work well together)  
+		- Service dicovery- it is a patterns which allows the MSs to discover which MS to call. - Eureka - it is a technology implementing the SD pattern to solve this common problem.
+
+2,3) Difference BW MS and WS
+	- Web services follow service oriented architecture - mainly built keeping re-usability in mind and not a specific task/application. IP-Locator service. 
+	- MS, on the other hand, is built to fullfil a specific requirement of a vast application. Just like WS, MS deals with data. UI can be another MS consuming the data from an other MS.
+	
+4)	Creating MS with Spring cloud.
+	- Each MS will be a spring boot application with their database	.
+5)- 12)  Designing the sample MS. 
+	- Spring boot is a choice to build MS because it is more comprehensive and developer experience is enhanced.  Embedded tomcat makes it more easier
+	- If there are 2 SB applications running on the same port, it will give error.
+	- Configure the port for in application.properties - server.port=8081
+	- Once all the SB apps are up. We can call one from the other using the inbuilt client in SB - RestTemplate. (RestTemplate will be deprecated and be replaced with WebClient(reactive way of programming))
+		restTemp.getForObject("uri", class)  - this makes the call to the specified uri, consume the payload and unmarshell it to the object of the specified class.
+	- Versioning the MSs is an important topic.
+	- @Bean - is a producer, it tells spring that I have something which other might need. @Autowired - is a consumer,it tells spring that I need something of this type. Use this to create the instance of RestTemplate.
+	
+13) Calling the MS using WebClient.
+	- In the normal, synchronous way of calling the MS, we wait until the response is ready and only after this we go for the subsequent processing. 
+	- In the asynchronous way, however, we send the request and can move ahead with other processing. This can be done using WebClient. In WC we pass the URI and also pass-in the lambda specifying the  further processing statements on the response, once it is generated.
+	- To use WebClient, we need to create a S project with Reactive Web dependencies (comes with Netty and Spiring WebFlux- containing all the required classes, including WebClient.Builder)  
+	- OR we can add spring-boot-starter-webflux in pom.xml
+	- We create the object of WebClient using the builder pattern and  call the MS.  new WebClient.Builder().build.get().uri("uri").retrieve().bodyToMono(Xyz.class).block();
+	- Mono - it is a reactive way of getting the required object in future. 
