@@ -25,5 +25,29 @@ SPRING BOOT MICROSERVICES (BASICS)
 	- In the asynchronous way, however, we send the request and can move ahead with other processing. This can be done using WebClient. In WC we pass the URI and also pass-in the lambda specifying the  further processing statements on the response, once it is generated.
 	- To use WebClient, we need to create a S project with Reactive Web dependencies (comes with Netty and Spiring WebFlux- containing all the required classes, including WebClient.Builder)  
 	- OR we can add spring-boot-starter-webflux in pom.xml
-	- We create the object of WebClient using the builder pattern and  call the MS.  new WebClient.Builder().build.get().uri("uri").retrieve().bodyToMono(Xyz.class).block();
-	- Mono - it is a reactive way of getting the required object in future. 
+	- We create the object of WebClient using the builder pattern and  call the MS:  new WebClient.Builder().build.get().uri("uri").retrieve().bodyToMono(Xyz.class).block();
+	- Mono - it is a reactive way of getting the required object in future.  block() - this makes the process sync. i.e., we are using reactive prog. constructs to write sync. code.
+	       - If we need to make it async. Remove block() and return the mono object.
+	
+14)-15)  - Why should we avoid sending the list of an object in the response.
+	- To make the MS backward compatible. So that If any new field is introduced or any enhancement is done in that object in future the consumer of the MS does not break. 
+	- Insteat the root of the payload must be an object containing the required list as a field.
+	
+16-17) Why hard coding URLs is bad, 
+	- Any change in the url requires code changes
+	- On the cloud, dynamic url is assinged to the services, 
+	- Load balancing becomes hard
+	- Need to change it for subsequent multiple environments : local, UAT, Prod.
+
+    - Beacuse of all these reason we have SERVICE DISCOVERY.
+		- Service discovery add a layer of abstraction between the client and the varied microservices.  The addresses of all the MSs are registered in the Discovery Server. 
+		- The client asks the Discovery Server to give the address of a particular service and then the client makes the actual call. 
+		- This pattern, where client does all the work is termed as Client Side Service Discovery.	
+		- The alternative where the DS makes the call to the specific service and retuns the response back to the client is - Server Side Service Discovery.
+		
+		
+		
+		
+		
+		
+		
