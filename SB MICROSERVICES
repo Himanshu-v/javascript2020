@@ -1,4 +1,4 @@
-SPRING BOOT MICROSERVICES (BASICS)
+SPRING BOOT MICROSERVICES (LEVEL 1) - COMMUNICATION AND SERVICE DISCOVERY
 
 1) Microservices - As the name suggest is a way of building an application by breaking/decomposing it down into smaller/moduler piece of code handling a specific task/domain instead of building the application as a monolith. 
 	- In a monolith application there are complexities within and in MS arch. there are complexities among different MSs.  
@@ -6,12 +6,15 @@ SPRING BOOT MICROSERVICES (BASICS)
 		- Service dicovery- it is a patterns which allows the MSs to discover which MS to call. - Eureka - it is a technology implementing the SD pattern to solve this common problem.
 
 2,3) Difference BW MS and WS
+
 	- Web services follow service oriented architecture - mainly built keeping re-usability in mind and not a specific task/application. IP-Locator service. 
 	- MS, on the other hand, is built to fullfil a specific requirement of a vast application. Just like WS, MS deals with data. UI can be another MS consuming the data from an other MS.
 	
 4)	Creating MS with Spring cloud.
+
 	- Each MS will be a spring boot application with their database	.
 5)- 12)  Designing the sample MS. 
+
 	- Spring boot is a choice to build MS because it is more comprehensive and developer experience is enhanced.  Embedded tomcat makes it more easier
 	- If there are 2 SB applications running on the same port, it will give error.
 	- Configure the port for in application.properties - server.port=8081
@@ -29,11 +32,13 @@ SPRING BOOT MICROSERVICES (BASICS)
 	- Mono - it is a reactive way of getting the required object in future.  block() - this makes the process sync. i.e., we are using reactive prog. constructs to write sync. code.
 	       - If we need to make it async. Remove block() and return the mono object.
 	
-14)-15)  - Why should we avoid sending the list of an object in the response.
+14)-15) Why should we avoid sending the list of an object in the response.
+
 	- To make the MS backward compatible. So that If any new field is introduced or any enhancement is done in that object in future the consumer of the MS does not break. 
 	- Insteat the root of the payload must be an object containing the required list as a field.
 	
-16-17) Why hard coding URLs is bad, 
+16-17) Why hard coding URLs is bad
+
 	- Any change in the url requires code changes
 	- On the cloud, dynamic url is assinged to the services, 
 	- Load balancing becomes hard
@@ -44,10 +49,93 @@ SPRING BOOT MICROSERVICES (BASICS)
 		- The client asks the Discovery Server to give the address of a particular service and then the client makes the actual call. 
 		- This pattern, where client does all the work is termed as Client Side Service Discovery.	
 		- The alternative where the DS makes the call to the specific service and retuns the response back to the client is - Server Side Service Discovery.
+		- Spring cloud uses CSSD pattern.  Spring handles caching - we can turn it off.
+		
+18) EUREKA
+ - The technology that implements CSSD pattern - Eureka.  (Netflix Open source (OSS):  Eureka, Ribbon, Hysterix, Zuul) 
+ - SPRING add a layer of abstraction on such technologies so that the developer doen't need to deal with these tech direcly but with the abstraction layer. One more ex. Spring data- a layer on JDBC/Hib
+ - We'll deal with the abstraction layer (Spring cloud) on the SD tech.
+ - STEPS TO WORK WITH:
+	- Create a eureka server(DS) and start it up. 
+	- Register all the MSs using Eureka client (PUBLISHERS)
+	- Locate the Publisher services using Eureka clien (Consumer) - The main client who is doing all the work. CSSD.
+	
+	
+19) Creating and Starting the Eureka Server. 
+	- Eureka server, counterintuitively, is a spring boot project with Eureka server dependencies. The main class is also annotated with @EnableEurekaServer
+	- To make Eureka client, you need to add the dependencies of Eureka Client.  Only after adding the clients the Eureka Servier knows the MSs exists.
+	- By default Eureka Server runs on port 8761. Every ES is a EC. You can have multipe instance of ES, one can be registered as a client with other servers or with itself. In order to prevent this, certain keys need to be added with values as false in the application.properties file.  
+	
+	
+20) Creating and Starting the Eureka Client. 
+ - Add the spring cloud version as a property in the pom.xml of all the SB projects acting as a MS.
+ - Add eureka client dependencies. 
+ - Add Dependency management for spring cloud.
+ - Add repository for spring cloud.  
+ - @EnableEurekaClient on the main class.
+	- Once you run the application - it gets registered as a client with the eureka server. Since ES is running on the default port 8761. If not, we need to add the conf in application.prop mentioning the port for the ES where this client can get registered.
+ - Change the application name for all the clients in a.prop.  And when the url for ES is hit, we will see the instances registered with it.
+ 
+ 
+21) Discovering Services.
+ - Usev @LoadBalanced on the @Bean of RestTemplate - @LB - enables the RestTemplate to call the service behind the scenes just by the service names taking into account the load on each instance. The library handles it internally.
+ - replace server:port with the name of the service in the url section of getForObject of RestTemplate.
+ - Eureka will check the registered clients and make a call to the instance with the matching name.
+ - We can deploy this app to prod without changing anything and it will work.
+ - Once the service is discovered, a default cache is maintained by ES for handling the subsequent calls. 
+
+22) Load Balancing at the client side. 
+	- When there are multiple instances of the same service (running on diff ports)registered with the ES, spring tell restTemp to internally calls any one of the instances based on the load they carry. And it is hndled with that single annotation @LoadBalanced on the restTemp bean.
+	
+	- We can do it programmatically using an interface - DiscoveryClient
+
+23) How falult tolerance work. 
+	- Say a registered service goes down, how to handle it when there is a call for it.  There is a concept of 'heart-beats' i.e., every client sends these hbs to the ES in regular interval telling it is still alive. If the ES doesn't get the hbs, it internally handles the request for that specific service.
+	- Say the ES goes down, Eureka client handles the error. 	If no response is given, EC will look it up in the cache.
+ 
+
+	
+	
+	
+SPRING BOOT MICROSERVICES (LEVEL 2)  - FAULT TOLERANCE AND RESILIENCE.
+	-Understanding the challenges with availability.
+	-Making MS resilient and fault tolerant.
+	
+2) Fault tolerance - What is the impact of a fault on the application. If one service goes down does the whole application goes down? How the system handles a fault. 
+   Resilience - How many fault can the system handle. The ability to bounce back from the failure. 
+
+4) Calling an external API. 
+	-Using the API url and API key we can make a call to external APIs. (MovieDB in this case).
+	-@Value("${api.key}") - used on the field to set the value mentioned in the application.properties file.
+	
+5) How do we make the architecture resilient (handle faults)
+	-Things which can go wrong. 
+		1) Service instance goes down.   Solution: Create multiple instances of the same service on different ports.  Load balancing technologies on client side like Ribbon makes the toggle calls to one of the instance. Multiple instances also balances the load. 
+		2) Microservice instance is slow. Beacuse of the algorithem of how Threads works in a web server when any request comes in, one slow instance of MS B and make the other instance of MS A process slow. The slow thread  : Solution: TIMEOUT for the threads taking too long to return the response. We can remove slow threads from the thread pool.  We can set Timeout with RestTemplate
+	
+
+9) Set Timeout with RestTemplate.
+	- In Any MS calling another/external MS we should set timeout.
+	- This can be done using an overloaded construtor of RestTemplate:   return new RestTemplate(new HttpComponentsClienHttpRequestFactory().setConnectTimeout(milliseconds));
+	  now, any request made with this object of restTemp will stay in the thread pool for max 3 seconds. 
+	- But, what is the frequency of request to the slower MS is more - it will lead to the same situation. Hence Timeout solves this problem partly.
+		
+11) Understanding the circuit breaker problem. : Breaks the misbehaving circuit when a fault is detected. Circuit breaker, unlike fuse, can be reset manually/automatically.
+	- First we identify which service is slow. 
+	- We, then, take temporary steps to avoid things getting worse.
+    - Deactivate the problem component to prevent this slowness propogate to the other downstream services. By not calling the slow service until it recovers.
+	- Circuit breaker pattern is mainly used in the MS which is calling two or more other MSs one of which can be slow.
+
+12) Circuit breaker parameters. Configuring what causes the circuit to break.
+	- Parameters on which we can trigger a circuit to break.
+	- We cannot certainly trigger the break just by the failure of request. It might break it too soon or it doesn't break it at all. So what should be the condition?
+	- When a circuit should trip: below-mentioned can be set as parameters
+		- Considering the last N requests. (In-turns depend on the frequency of the incoming requests, and the size of thread pool)
+		- How many of those N should fail to trigger a CB.
+		- Timeout duration. 
+		- How long to wait, before resetting the CB again.
 		
 		
-		
-		
-		
-		
-		
+13) What to do when the circuit breaks. 
+	- 
+	
