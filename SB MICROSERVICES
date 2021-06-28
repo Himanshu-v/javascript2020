@@ -137,5 +137,14 @@ SPRING BOOT MICROSERVICES (LEVEL 2)  - FAULT TOLERANCE AND RESILIENCE.
 		
 		
 13) What to do when the circuit breaks. 
-	- 
+	- We need a fallback for the incoming requests for the slow service. 
+		- Throw an error (Not recomm.)
+		- A default fallback response.
+		- To save previous responses in cache and re-using them. Best option.
+
+14) Why circuit breakers:  - Fail fast. - Has fallback functionality. - Automatic recovery. 
+		-Circuit Breaker Pattern:  When to break circuits. - What to do when circuit breaks - When to resume the requests/reset the circuit.
+
+15) HYSTRIX - An open source library by Netflix which implements the CBP.
+		- Give Hysterix all the parameters and it does the work.  It works well with Spring Boot. The only disadv. is that Hystix is no longer under development but in maintenace
 	
